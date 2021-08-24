@@ -29,6 +29,9 @@
   "projects": {
     "container-lib": {
       "tags": []
+    },
+    "repository": {
+      "tags": []
     }
   }
 }

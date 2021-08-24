@@ -17,7 +17,8 @@
     "paths": {
       "@nx-class-hierarchy-sketch/container-lib": [
         "libs/container-lib/src/index.ts"
-      ]
+      ],
+      "@nx-class-hierarchy-sketch/repository": ["libs/repository/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,1 +1,1 @@
-export * from './lib/container-lib';
+export * from './lib';
