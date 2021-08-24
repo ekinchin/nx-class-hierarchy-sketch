@@ -1,10 +1,10 @@
-import { IContainer } from './IContainerType';
+import { IContainerType } from './IContainerType';
 import { IPackageListItem } from '../packageList';
 import { IContainerListItem } from '../containerList';
 
 export abstract class AbstractContainerType {
   constructor(
-    private _container: IContainer,
+    private _container: IContainerType,
     private _packageList: IPackageListItem[],
     private _containerList: IContainerListItem[],
   ) { }
