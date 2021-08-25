@@ -1,4 +1,4 @@
 export interface IContainerListItem {
-  qr: string;
+  code: string;
   name: string;
 }

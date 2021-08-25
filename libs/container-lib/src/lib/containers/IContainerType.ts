@@ -1,7 +1,7 @@
 import containersType from './entity';
 
 export interface IContainerType {
-  code: string;
+  id: number;
   type: keyof typeof containersType;
   invNo: string;
   createdAt: string;

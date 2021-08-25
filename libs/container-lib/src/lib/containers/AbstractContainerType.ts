@@ -8,8 +8,8 @@ export abstract class AbstractContainerType {
     protected _packageList: IPackageList,
     private _containerList: IContainerListItem[],
   ) { }
-  get code() {
-    return this._container.code;
+  get id() {
+    return this._container.id;
   }
 
   get type() {
