@@ -27,9 +27,16 @@
   },
   "private": true,
   "dependencies": {
-    "tslib": "^2.0.0"
+    "@nestjs/common": "^8.0.6",
+    "@nestjs/core": "^8.0.6",
+    "@nestjs/typeorm": "^8.0.2",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.3.0",
+    "tslib": "^2.0.0",
+    "typeorm": "^0.2.37"
   },
   "devDependencies": {
+    "@nestjs/cli": "^8.1.1",
     "@nrwl/cli": "12.7.2",
     "@nrwl/eslint-plugin-nx": "12.7.2",
     "@nrwl/jest": "12.7.2",
