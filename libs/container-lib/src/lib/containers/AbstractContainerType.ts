@@ -1,11 +1,11 @@
 import { IContainerType } from './IContainerType';
-import { IPackageListItem } from '../packageList';
+import { IPackageList, IPackageListItem } from '../packageList';
 import { IContainerListItem } from '../containerList';
 
 export abstract class AbstractContainerType {
   constructor(
     private _container: IContainerType,
-    private _packageList: IPackageListItem[],
+    protected _packageList: IPackageList,
     private _containerList: IContainerListItem[],
   ) { }
   get code() {
@@ -24,11 +24,17 @@ export abstract class AbstractContainerType {
     return this._container.destroyedAt;
   }
 
-  abstract packageListAppend(): boolean;
-  abstract get packageList(): IPackageListItem[];
-  abstract packageListRemove(): boolean;
+  get packageList():IPackageListItem[] {
+    return this._packageList.packageListItems;
+  }
 
-  abstract containerListAppend(item: AbstractContainerType): boolean;
-  abstract get containerList(): IContainerListItem[];
-  abstract containerListRemove(item: AbstractContainerType): boolean;
+  get containerList() {
+    return this._containerList;
+  }
+
+  abstract packageListAppend(item: string): IPackageListItem | Error;
+  abstract packageListRemove(item: string): IPackageListItem | Error;
+
+  abstract containerListAppend(item: AbstractContainerType): IContainerListItem | Error;
+  abstract containerListRemove(item: AbstractContainerType): IContainerListItem | Error;
 }

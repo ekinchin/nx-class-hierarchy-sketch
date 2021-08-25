@@ -1,4 +1,6 @@
 export interface IPackageListItem {
-  qr: string;
+  code: string;
   name: string;
+  insertedAt?: string;
+  extractedAt?: string;
 }

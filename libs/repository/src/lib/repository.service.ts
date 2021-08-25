@@ -1,13 +1,10 @@
-import { IContainerRepository,IContainerType, IPackageListItem, IContainerListItem} from '@nx-class-hierarchy-sketch/container-lib';
+import { IGenericRepository,IContainerType, IPackageListItem, IContainerListItem, ContainerFactory, PackageList} from '@nx-class-hierarchy-sketch/container-lib';
 import { AbstractContainerType } from 'libs/container-lib/src/lib/containers/AbstractContainerType';
-import { ContainerTypeA, ContainerTypeB } from '@nx-class-hierarchy-sketch/container-lib'
 
-const containersType = { ContainerTypeA, ContainerTypeB };
-
-export class ContainerRepository implements IContainerRepository {
+export class ContainerRepository implements IGenericRepository<AbstractContainerType> {
   constructor(private repo: unknown) { }
 
-  async load(): Promise<AbstractContainerType> {
+  async load(code: string): Promise<AbstractContainerType> {
 
     //загрузка из ОРМ
     const container: IContainerType = {
@@ -17,12 +14,12 @@ export class ContainerRepository implements IContainerRepository {
       invNo: 'invnumber',
       type: 'ContainerTypeA',
     };
-    const packageList: IPackageListItem = {name: 'qqq', qr: "sdsadasda"};
+    const packageListItem: IPackageListItem = { name: 'qqq', code: "sdsadasda" };
+    const packageList = new PackageList([packageListItem], code);
     const containerList: IContainerListItem = {name: 'qqq', qr: "sdsadasda"};
 
-    const containerType = containersType[container.type];
-    if (containerType) return new containerType(container, [packageList], [containerList]);
-    throw new Error('Unknown container type');
+    const containerFactory = new ContainerFactory();
+    return containerFactory.create(container, packageList, [containerList]);
   }
   async update(container: AbstractContainerType): Promise<AbstractContainerType> {
     throw new Error(`Method not implemented. Container code: ${container.code}`);
