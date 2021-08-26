@@ -5,7 +5,7 @@ import { IMapper } from './IMapper';
 export class PackageListMapper implements IMapper<IPackageListItem, PackageList> {
   mapToDomain(entity: PackageList): IPackageListItem {
     return {
-      code: entity.code.code,
+      code: entity.code,
       name: entity.name,
       insertedAt: entity.insertedAt,
       extractedAt: entity.extractedAt,

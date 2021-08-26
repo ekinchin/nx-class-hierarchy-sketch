@@ -11,6 +11,10 @@ export class PackageList implements IPackageList {
     return this._packageList;
   };
 
+  get code(): string {
+    return this._code;
+  }
+
   append(item: string): IPackageListItem | Error {
     const isAlreadyExists = this._packageList.some(({ name }) => name === item);
     if (isAlreadyExists) return new Error('package is exists already');

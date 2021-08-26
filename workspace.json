@@ -1,6 +1,56 @@
 {
   "version": 2,
   "projects": {
+    "container-app": {
+      "root": "apps/container-app",
+      "sourceRoot": "apps/container-app/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/container-app",
+            "main": "apps/container-app/src/main.ts",
+            "tsConfig": "apps/container-app/tsconfig.app.json",
+            "assets": ["apps/container-app/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/container-app/src/environments/environment.ts",
+                  "with": "apps/container-app/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "container-app:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/container-app/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/container-app"],
+          "options": {
+            "jestConfig": "apps/container-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "container-lib": {
       "root": "libs/container-lib",
       "sourceRoot": "libs/container-lib/src",
@@ -45,6 +95,7 @@
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/nest"
+  },
+  "defaultProject": "container-app"
 }

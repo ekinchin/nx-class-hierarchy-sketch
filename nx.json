@@ -27,6 +27,9 @@
     ]
   },
   "projects": {
+    "container-app": {
+      "tags": []
+    },
     "container-lib": {
       "tags": []
     },
