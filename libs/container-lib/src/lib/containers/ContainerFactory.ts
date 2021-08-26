@@ -1,4 +1,4 @@
-import containersType from './entity';
+import { availableContainersType } from './entity';
 import { AbstractContainerType } from './AbstractContainerType';
 import { IPackageList } from '../packageList';
 import { IContainerListItem } from '../containerList';
@@ -10,7 +10,7 @@ export class ContainerFactory{
     packageList: IPackageList,
     containerList: IContainerListItem[]
   ): AbstractContainerType {
-    const containerType = containersType[container.type];
+    const containerType = availableContainersType[container.type];
     if (containerType) return new containerType(container, packageList, containerList);
     throw new Error('Unknown container type');
   }
