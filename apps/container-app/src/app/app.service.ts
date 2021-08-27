@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { AbstractContainerType, ContainerUseCase, IGenericRepository, IPackageListItem } from '@nx-class-hierarchy-sketch/container-lib';
+import { ContainerUseCase } from '@nx-class-hierarchy-sketch/container-lib';
+import { ContainerRepository, PackgeListRepository } from '@nx-class-hierarchy-sketch/repository';
 @Injectable()
 export class AppService {
   private _containerUseCase: ContainerUseCase;
 
   constructor(
-      private _containerRepository: IGenericRepository<AbstractContainerType>,
-      private _packageListRepository: IGenericRepository<IPackageListItem>,
+      private _containerRepository: ContainerRepository,
+      private _packageListRepository: PackgeListRepository,
   ) {
     this._containerUseCase = new ContainerUseCase(_containerRepository, _packageListRepository);
   }

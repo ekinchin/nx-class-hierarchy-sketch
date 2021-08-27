@@ -16,34 +16,37 @@ export class ContainerRepository implements IGenericRepository<AbstractContainer
   constructor(
     @InjectRepository(Qr)
     private qrRepositoryOrm: RepositoryOrm<Qr>,
-    @InjectRepository(Container)
-    private containerRepositoryOrm: RepositoryOrm<Container>
+    // @InjectRepository(Container)
+    // private containerRepositoryOrm: RepositoryOrm<Container>
   ) { }
 
   async load(code: string): Promise<AbstractContainerType> {
+
     const qr = await this.qrRepositoryOrm.findOne({ code });
+    console.log(qr, code);
+    throw new Error('Not')
+    // const containerOrm = qr.container;
+    // const containerDomain = (new ContainerMapper).mapToDomain(containerOrm);
 
-    const containerOrm = qr.container;
-    const containerDomain = (new ContainerMapper).mapToDomain(containerOrm);
 
+    // const packageListOrm = qr.packageLists;
+    // const pacakgeListMapper = new PackageListMapper;
+    // const pacakgeListDomain = packageListOrm.map((item) => pacakgeListMapper.mapToDomain(item));
+    // const packageList = new PackageList(pacakgeListDomain, code);
 
-    const packageListOrm = qr.packageLists;
-    const pacakgeListMapper = new PackageListMapper;
-    const pacakgeListDomain = packageListOrm.map((item) => pacakgeListMapper.mapToDomain(item));
-    const packageList = new PackageList(pacakgeListDomain, code);
+    // const containerList: IContainerListItem = {name: 'qqq', code: "sdsadasda"};
 
-    const containerList: IContainerListItem = {name: 'qqq', code: "sdsadasda"};
-
-    const containerFactory = new ContainerFactory();
-    return containerFactory.create(containerDomain, packageList, [containerList]);
+    // const containerFactory = new ContainerFactory();
+    // return containerFactory.create(containerDomain, packageList, [containerList]);
   }
   async update(container: AbstractContainerType): Promise<AbstractContainerType> {
-    const containerOrm = {
-      id: container.id,
-      createdAt: container.createdAt,
-      destroyedAt: container.destroyedAt,
-    };
-    await this.containerRepositoryOrm.save(containerOrm);
-    return container;
+    // const containerOrm = {
+    //   id: container.id,
+    //   createdAt: container.createdAt,
+    //   destroyedAt: container.destroyedAt,
+    // };
+    // await this.containerRepositoryOrm.save(containerOrm);
+    // return container;
+    throw new Error('not implemented');
   }
 }

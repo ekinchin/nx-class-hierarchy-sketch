@@ -2,7 +2,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Container, PackageList, Qr, Role, Type } from './entity';
-import { RepositoryService } from './service.module';
 
 @Module({
   imports: [
@@ -13,10 +12,9 @@ import { RepositoryService } from './service.module';
       username: 'postgres',
       password: 'postgres',
       database: 'wms',
-      entities: [Container, PackageList, Qr, Role, Type ],
       synchronize: false,
+      entities: [Qr, Container, PackageList, Type, Role],
     }),
   ],
-  providers: [RepositoryService],
 })
 export class ContainerRepositoryModule {}
