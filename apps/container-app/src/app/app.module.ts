@@ -2,10 +2,11 @@ import { Module } from '@nestjs/common';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ContainerRepositoryModule, RepositoryService } from '@nx-class-hierarchy-sketch/repository';
+import { ContainerDatabaseAdapter } from '@nx-class-hierarchy-sketch/repository';
+import { ContainerRepositoryModule } from '@nx-class-hierarchy-sketch/primary-database-connection';
 
 @Module({
-  imports: [ContainerRepositoryModule, RepositoryService],
+  imports: [ContainerRepositoryModule, ContainerDatabaseAdapter],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -18,6 +18,9 @@
       "@nx-class-hierarchy-sketch/container-lib": [
         "libs/container-lib/src/index.ts"
       ],
+      "@nx-class-hierarchy-sketch/primary-database-connection": [
+        "libs/primary-database-connection/src/index.ts"
+      ],
       "@nx-class-hierarchy-sketch/repository": ["libs/repository/src/index.ts"]
     }
   },

@@ -72,6 +72,27 @@
         }
       }
     },
+    "primary-database-connection": {
+      "root": "libs/primary-database-connection",
+      "sourceRoot": "libs/primary-database-connection/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/primary-database-connection/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/primary-database-connection"],
+          "options": {
+            "jestConfig": "libs/primary-database-connection/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "repository": {
       "root": "libs/repository",
       "sourceRoot": "libs/repository/src",

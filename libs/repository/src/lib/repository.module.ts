@@ -1,20 +1,13 @@
-
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { ContainerRepository } from './containerRepository.service';
 import { Container, PackageList, Qr, Role, Type } from './entity';
+import { PackgeListRepository } from './packageListRepository.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'wms',
-      synchronize: false,
-      entities: [Qr, Container, PackageList, Type, Role],
-    }),
-  ],
+  imports: [TypeOrmModule.forFeature([Qr, Container, PackageList, Type, Role])],
+  providers: [ContainerRepository, PackgeListRepository],
+  exports: [ContainerRepository, PackgeListRepository],
 })
-export class ContainerRepositoryModule {}
+export class ContainerDatabaseAdapter {}
