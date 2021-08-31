@@ -7,17 +7,21 @@ import {
   IPackageListItem
 } from '@nx-class-hierarchy-sketch/container-lib';
 import { Repository as RepositoryOrm } from 'typeorm';
-import { Qr, PackageList as PackageListOrm } from './entity';
+import { Qr, PackageListC, ContainerC } from './entity';
 import { PackageListMapper } from './mapping';
 
 @Injectable()
 export class PackgeListRepository implements IGenericRepository<IPackageListItem> {
   constructor(
-    // @InjectRepository(Qr)
-    // private qrRepositoryOrm: RepositoryOrm<Qr>,
-    // @InjectRepository(PackageListOrm)
-    // private packageListRepositoryOrm: RepositoryOrm<PackageListOrm>
-  ) { }
+    @InjectRepository(Qr)
+    private qrRepositoryOrm: RepositoryOrm<Qr>,
+    @InjectRepository(PackageListC)
+    private packageListRepositoryOrm: RepositoryOrm<PackageListC>,
+    @InjectRepository(ContainerC)
+    private containerRepositoryOrm: RepositoryOrm<ContainerC>
+  ) {
+    console.log('packageListRepository');
+  }
 
   async load(code: string): Promise<IPackageListItem> {
     // const qr = await this.qrRepositoryOrm.findOne({ code });
@@ -27,6 +31,7 @@ export class PackgeListRepository implements IGenericRepository<IPackageListItem
     // return new PackageList(pacakgeListDomain, code);
     throw new Error('Not Implemented')
   }
+
   async update(packageList: IPackageListItem): Promise<IPackageListItem> {
     throw new Error('Not implemented');
     // if(packageList.packageListItems.length === 0) return packageList;

@@ -3,7 +3,7 @@ import { Qr } from "./Qr";
 
 @Index("package_list_pk", ["code", "insertedAt", "name"], { unique: true })
 @Entity("package_list", { schema: "public" })
-export class PackageList {
+export class PackageListC {
   @Column("character varying", { primary: true, name: "code" })
   code: string;
 

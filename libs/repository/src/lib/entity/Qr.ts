@@ -6,8 +6,8 @@ import {
   ManyToOne,
   OneToMany,
 } from "typeorm";
-import { PackageList } from "./PackageList";
-import { Container } from "./Container";
+import { PackageListC } from "./PackageList";
+import { ContainerC } from "./Container";
 
 @Index("qr_pk", ["code"], { unique: true })
 @Entity("qr", { schema: "public" })
@@ -15,10 +15,10 @@ export class Qr {
   @Column("character varying", { primary: true, name: "code" })
   code: string;
 
-  @OneToMany(() => PackageList, (packageList) => packageList.code)
-  packageLists: PackageList[];
+  @OneToMany(() => PackageListC, (packageList) => packageList.code)
+  packageLists: PackageListC[];
 
-  @ManyToOne(() => Container, (container) => container.qrs)
+  @ManyToOne(() => ContainerC, (container) => container.qrs)
   @JoinColumn([{ name: "container", referencedColumnName: "id" }])
-  container: Container;
+  container: ContainerC;
 }

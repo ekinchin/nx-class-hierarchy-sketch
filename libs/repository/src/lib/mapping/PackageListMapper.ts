@@ -1,9 +1,9 @@
 import { IPackageListItem } from '@nx-class-hierarchy-sketch/container-lib';
-import { PackageList } from '../entity/PackageList';
+import { PackageListC } from '../entity/PackageList';
 import { IMapper } from './IMapper';
 
-export class PackageListMapper implements IMapper<IPackageListItem, PackageList> {
-  mapToDomain(entity: PackageList): IPackageListItem {
+export class PackageListMapper implements IMapper<IPackageListItem, PackageListC> {
+  mapToDomain(entity: PackageListC): IPackageListItem {
     return {
       code: entity.code,
       name: entity.name,
@@ -11,7 +11,7 @@ export class PackageListMapper implements IMapper<IPackageListItem, PackageList>
       extractedAt: entity.extractedAt,
     }
   }
-  mapToStorage(): PackageList {
+  mapToStorage(): PackageListC {
     throw new Error('Not implemented');
   }
 }

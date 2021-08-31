@@ -7,46 +7,51 @@ import {
   ContainerFactory,
   PackageList
 } from '@nx-class-hierarchy-sketch/container-lib';
-import { Repository as RepositoryOrm } from 'typeorm';
-import { Container, Qr } from './entity';
+import { Equal, Repository } from 'typeorm';
+import { ContainerC, Qr, Type, PackageListC } from './entity';
 import { ContainerMapper, PackageListMapper } from './mapping';
 
 @Injectable()
 export class ContainerRepository implements IGenericRepository<AbstractContainerType> {
+  containerMapper: ContainerMapper;
+  packageListMapper: PackageListMapper;
   constructor(
+    @InjectRepository(PackageListC)
+    private packageListRepositoryOrm: Repository<PackageListC>,
+    @InjectRepository(ContainerC)
+    private containerRepositoryOrm: Repository<ContainerC>,
     @InjectRepository(Qr)
-    private qrRepositoryOrm: RepositoryOrm<Qr>,
-    // @InjectRepository(Container)
-    // private containerRepositoryOrm: RepositoryOrm<Container>
-  ) { }
+    private qrRepositoryOrm: Repository<Qr>,
+  ) {
+    console.log('ContainerRepository constructor');
+    this.containerMapper = new ContainerMapper();
+    this.packageListMapper = new PackageListMapper();
+  }
 
   async load(code: string): Promise<AbstractContainerType> {
 
-    const qr = await this.qrRepositoryOrm.findOne({ code });
-    console.log(qr, code);
-    throw new Error('Not')
-    // const containerOrm = qr.container;
-    // const containerDomain = (new ContainerMapper).mapToDomain(containerOrm);
+    const containerOrm = await this.containerRepositoryOrm.findOne(code, { relations: ['type'] });
+    const containerDomain = this.containerMapper.mapToDomain(containerOrm);
 
-
-    // const packageListOrm = qr.packageLists;
-    // const pacakgeListMapper = new PackageListMapper;
-    // const pacakgeListDomain = packageListOrm.map((item) => pacakgeListMapper.mapToDomain(item));
-    // const packageList = new PackageList(pacakgeListDomain, code);
-
-    // const containerList: IContainerListItem = {name: 'qqq', code: "sdsadasda"};
-
-    // const containerFactory = new ContainerFactory();
-    // return containerFactory.create(containerDomain, packageList, [containerList]);
+    const qr = await this.qrRepositoryOrm.findOne({
+      where: { container: Equal(containerOrm.id)}
+    });
+    const packageListOrm = await this.packageListRepositoryOrm.find({
+      relations: ['code2'],
+      where: { code: Equal(qr.code)}
+    });
+    const pacakgeListDomain = packageListOrm.map(p => this.packageListMapper.mapToDomain(p));
+    const packageList = new PackageList(pacakgeListDomain, code);
+    const containerList: IContainerListItem = {name: 'qqq', code: "sdsadasda"};
+    const containerFactory = new ContainerFactory();
+    return containerFactory.create(containerDomain, packageList, [containerList]);
   }
   async update(container: AbstractContainerType): Promise<AbstractContainerType> {
-    // const containerOrm = {
-    //   id: container.id,
-    //   createdAt: container.createdAt,
-    //   destroyedAt: container.destroyedAt,
-    // };
-    // await this.containerRepositoryOrm.save(containerOrm);
-    // return container;
-    throw new Error('not implemented');
+    await this.containerRepositoryOrm.save({
+      id: container.id,
+      createdAt: container.createdAt,
+      destroyedAt: container.destroyedAt,
+    });
+    return container;
   }
 }

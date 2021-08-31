@@ -12,7 +12,7 @@ import { Qr } from "./Qr";
 
 @Index("container_pk", ["id"], { unique: true })
 @Entity("container", { schema: "public" })
-export class Container {
+export class ContainerC {
   @PrimaryGeneratedColumn({ type: "integer", name: "id" })
   id: number;
 

@@ -1,5 +1,5 @@
 import { Column, Entity, Index, ManyToMany, OneToMany } from "typeorm";
-import { Container } from "./Container";
+import { ContainerC } from "./Container";
 import { Role } from "./Role";
 
 @Index("type_un", ["type"], { unique: true })
@@ -9,8 +9,8 @@ export class Type {
   @Column("character varying", { primary: true, name: "type" })
   type: string;
 
-  @OneToMany(() => Container, (container) => container.type)
-  containers: Container[];
+  @OneToMany(() => ContainerC, (container) => container.type)
+  containers: ContainerC[];
 
   @ManyToMany(() => Role, (role) => role.types)
   roles: Role[];
